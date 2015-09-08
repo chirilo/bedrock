@@ -41,6 +41,7 @@ urlpatterns = patterns(
     (r'', include('bedrock.newsletter.urls')),
     (r'', include('bedrock.redirects.urls')),
     (r'', include('bedrock.research.urls')),
+    (r'', include('bedrock.teach.urls')),
 
     # L10n example.
     (r'^l10n_example/',

@@ -1,0 +1,73 @@
+{# This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/. -#}
+
+{% from "macros.html" import share_cta with context %}
+
+{% extends "base-resp.html" %}
+
+{% block page_css %}
+  {% stylesheet 'smarton' %}
+{% endblock %}
+
+{% block site_header %}{% endblock %}
+
+{% block content %}
+
+  {% block smarton_header %}
+  <header class="masthead">
+    <div class="content">
+      <h1 class="series-title"><a href="{{ url('teach.smarton.index') }}">{{ _('The <b>SmartOn</b> Series') }}</a></h1>
+      <p class="series-intro">{{ _('The smarter you are online, the safer and stronger you’ll be – and the more opportunity you’ll discover. Visit us here to get and stay smart on the Web’s most important topics.') }}</p>
+      <p class="series-link"><a href="{{ url('teach.smarton.index') }}">See all SmartOns</a></p>
+
+      <div id="tabzilla">
+        <a href="{{ url('mozorg.home') }}">Mozilla</a>
+      </div>
+    </div>
+  </header>
+  {% endblock %}
+
+  {% block smarton_content %}{% endblock %}
+
+  <div class="newsletter" id="newsletter-signup">
+    <div class="content">
+      {% if LANG == 'en-US' %}
+        {{ mozorg_newsletter_form() }}
+      {% else %}
+        {{ email_newsletter_form() }}
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block email_form %}{% endblock %}
+
+{% block js %}
+  {% javascript 'smarton' %}
+{% endblock %}
+
+{% macro smarton_navbar(title='', share_text='', share_url='') -%}
+<header class="smarton-nav">
+  <div class="content">
+  {%- if title -%}
+    <h1 class="smarton-title">{{ title }}</h1>
+  {%- endif -%}
+
+    {% set share_urls = { 'twitter': share_url, 'googleplus': share_url, 'facebook': share_url } -%}
+    {% set cta_text = _('Share') %}
+    {{ share_cta(cta_text, share_urls, share_text, 'head-share', 'sky mini') }}
+
+    <nav class="nav-steps">
+      <ol>
+        <li class="nav-step-ask"><a href="#ask"><b>1</b> Ask</a></li>
+        <li class="nav-step-learn"><a href="#learn"><b>2</b> Learn</a></li>
+        <li class="nav-step-act"><a href="#act"><b>3</b> Act</a></li>
+        <li class="nav-step-discuss"><a href="#discuss"><b>4</b> Discuss</a></li>
+      </ol>
+    </nav>
+
+  </div>
+</header>
+{%- endmacro %}

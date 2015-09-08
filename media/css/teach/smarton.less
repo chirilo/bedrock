@@ -1,0 +1,452 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+@import '../sandstone/lib.less';
+
+
+// Set up color themes
+@theme-surveillance: #606ca2;
+@theme-surveillance-dark: darken(@theme-surveillance, 20%);
+@theme-surveillance-light: lighten(@theme-surveillance, 45%);
+
+@theme-security: #5f8ac9;
+@theme-security-dark: darken(@theme-security, 20%);
+@theme-security-light: lighten(@theme-security, 40%);
+
+@theme-privacy: #aa41a4;
+@theme-privacy-dark: darken(@theme-privacy, 20%);
+@theme-privacy-light: lighten(@theme-privacy, 40%);
+
+.theme-color(@color) {
+    body.@{color} {
+        .masthead { background-color: ~'@{@{color}-dark}'; }
+        .smarton-nav { background-color: ~'@{@{color}}'; }
+        .big-list > li:before { background-color: ~'@{@{color}}'; }
+        .pullquote { background-color: ~'@{@{color}-light}'; color: ~'@{@{color}}'; }
+        .main .section {
+            h1, h2, h3, h4, h5 { color: ~'@{@{color}}'; }
+            a:link, a:visited, a:hover { color: ~'@{@{color}}'; }
+        }
+        .newsletter { background-color: ~'@{@{color}-dark}'; }
+        .newsletter .button { color: ~'@{@{color}}'; }
+    }
+}
+
+.theme-color(~"theme-surveillance");
+.theme-color(~"theme-security");
+.theme-color(~"theme-privacy");
+
+
+
+
+// Override defaults
+#outer-wrapper {
+    background: #fff;
+}
+
+#wrapper {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+#tabzilla {
+    position: absolute;
+    right: 20px;
+    top: 0;
+}
+
+#colophon {
+    background: #ccc;
+    margin: 0;
+}
+
+// Blocks
+.section {
+    .clearfix();
+    margin: 0 auto;
+    position: relative;
+}
+
+.section:focus,
+.section:target {
+    outline: 0;
+}
+
+.content {
+    .border-box();
+    .clearfix();
+    margin: 0 auto;
+    padding: @baseLine @gridGutterWidth;
+    position: relative;
+    width: @widthDesktop;
+
+    @media only screen and (min-width: @breakDesktopWide) {
+        width: @widthDesktopWide;
+    }
+
+    @media only screen and (max-width: @breakDesktop) {
+        width: @widthTablet;
+    }
+
+    @media only screen and (max-width: @breakTablet) {
+        width: @widthMobile;
+    }
+
+    @media only screen and (min-width: @breakMobileLandscape) and (max-width: @breakTablet) {
+        width: @widthMobileLandscape;
+    }
+}
+
+.main .content {
+    padding: @baseLine (@gridColumnWidth + (@gridGutterWidth * 2.5));
+}
+
+.section-title {
+    .font-size(48px);
+    padding-top: 40px;
+    border-top: 3px solid @borderColor;
+}
+
+#ask .section-title {
+    border-top: 0;
+}
+
+.section-intro {
+    .open-sans-light();
+    .font-size(20px);
+}
+
+
+// Landing page topics
+.smarton-topics {
+    list-style: none;
+    margin: 2em 10px;
+    padding: 0 (@gridColumnWidth + (@gridGutterWidth * 2.5));
+    text-align: center;
+    .clearfix;
+
+    > li {
+        .span(3);
+        .border-box;
+        padding: 20px;
+        background: rgba(0,0,0,.1);
+    }
+
+    h2, a {
+        color: #fff;
+        text-shadow: none;
+    }
+
+    .topic-privacy {
+        background: @theme-privacy;
+    }
+
+    .topic-security {
+        background: @theme-security;
+    }
+
+    .topic-surveillance {
+        background: @theme-surveillance;
+    }
+
+}
+
+
+// Header
+.masthead {
+    text-align: center;
+    background: @mozIDGrey;
+    color: #fff;
+
+    .content {
+        padding-top: 40px;
+    }
+
+    .series-title {
+        font-style: italic;
+    }
+
+    .series-intro {
+        .font-size(18px);
+        margin: 0 (@gridColumnWidth + @gridGutterWidth) 1em;
+        color: rgba(255, 255, 255, .8);
+    }
+
+    a {
+        color: #fff;
+        text-shadow: none;
+    }
+}
+
+// This is a hack.
+// Todo: Make the template smarter.
+.landing .series-link {
+    display: none;
+}
+
+// Steps
+.smarton-nav {
+    background: #ccc;
+    .clearfix();
+
+    .content {
+        padding: 40px @gridGutterWidth @baseLine;
+    }
+
+    .smarton-title {
+        .span(7);
+        margin-bottom: 0;
+        color: #fff;
+        text-shadow: none;
+    }
+
+    .mozilla-share-cta {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        h3,
+        ul li a {
+            color: rgba(255, 255, 255, .8);
+        }
+
+        ul li a:hover,
+        ul li a:focus,
+        ul li a:active {
+            color: #fff;
+        }
+    }
+
+    &.fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        z-index: 99;
+        box-shadow: 0 0 5px rgba(0,0,0,.1);
+    }
+}
+
+// Progress
+.nav-steps {
+    .font-size(16px);
+    width: (@gridColumnWidth * 5) + (@gridGutterWidth * 4);
+    position: absolute;
+    bottom: @baseLine;
+    left: (@gridColumnWidth * 7) + (@gridGutterWidth * 8);
+
+    ol {
+        margin: 0;
+        display: flex;
+    }
+
+    li {
+        width: 25%;
+        list-style: none;
+        display: inline-block;
+        margin: 0 10px;
+        padding: 0;
+        position: relative;
+    }
+
+    a {
+        color: rgba(255, 255, 255, .8);
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: #fff;
+        }
+    }
+}
+
+
+// Pull quotes
+.pullquote {
+    background: rgba(0,0,0,.1);
+    width: @gridColumnWidth * 3.5;
+    padding: @baseLine @gridGutterWidth;
+    float: right;
+    clear: right;
+    margin: 0 -(@gridColumnWidth + (@gridGutterWidth * 2.5)) @baseLine @gridGutterWidth;
+
+    .quote {
+        position: relative;
+        font-style: italic;
+        margin-bottom: .5em;
+        .open-sans-light();
+        .font-size(20px);
+
+        &:before,
+        &:after {
+            content: "“";
+            font-family: sans-serif;
+        }
+
+        &:before {
+            position: absolute;
+            top: 0;
+            left: -.5em;
+        }
+
+        &:after {
+            content: "”";
+        }
+    }
+
+    .attribute {
+        color: rgba(0, 0, 0, .5);
+    }
+}
+
+
+// Pullcharts
+.pullchart {
+    width: @gridColumnWidth * 3.5;
+    padding: @baseLine @gridGutterWidth;
+    float: right;
+    clear: right;
+    margin: 0 -(@gridColumnWidth + (@gridGutterWidth * 2.5)) @baseLine @gridGutterWidth;
+
+    .number {
+        display: block;
+        margin: 0 auto @baseLine/2 auto;
+        height: 140px;
+        width: 140px;
+        background: rgba(0,0,0,.1);
+        line-height: 140px;
+        letter-spacing: -0.02em;
+        text-align: center;
+        border-radius: 100%;
+        .open-sans-light;
+        .font-size(62px);
+
+        sup {
+            .font-size(24px);
+        }
+    }
+
+    cite {
+        display: block;
+        color: @textColorLight;
+        font-style: italic;
+        .font-size(14px);
+    }
+}
+
+
+// Videos
+.video {
+    margin: 0 0 @baseLine*2;
+    text-align: center;
+}
+
+
+// Pie charts
+.charts {
+    .chart {
+        .span(4);
+    }
+
+    .number {
+        display: block;
+        margin: 0 auto @baseLine/2 auto;
+        height: 140px;
+        width: 140px;
+        background: rgba(0,0,0,.1);
+        line-height: 140px;
+        letter-spacing: -0.02em;
+        text-align: center;
+        border-radius: 100%;
+        .open-sans-light;
+        .font-size(62px);
+
+        sup {
+            .font-size(24px);
+        }
+    }
+
+    p {
+        margin: @baseLine @gridGutterWidth;
+    }
+
+    cite {
+        display: block;
+        color: @textColorLight;
+        font-style: italic;
+        .font-size(14px);
+    }
+}
+
+
+// Big numbered lists
+.big-list {
+    padding: 0;
+
+    > li {
+        position: relative;
+        counter-increment: steps;
+        list-style-type: none;
+        margin: 0 0 @baseLine/2 0;
+        padding: @baseLine/2 @gridGutterWidth 0 80px;
+        min-height: 60px;
+        border-bottom: 1px dotted @borderColor;
+        .font-size(@largeFontSize);
+
+        &:last-child {
+            border-bottom: 0;
+        }
+
+        &:before {
+            content: counter(steps);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            height: 60px;
+            width: 60px;
+            margin: 0 auto;
+            line-height: 60px;
+            border-radius: 30px;
+            text-align: center;
+            background: gray;
+            color: #fff;
+            .font-size(42px);
+            .open-sans-light();
+        }
+    }
+}
+
+// Newsletter
+.newsletter {
+    background: @mozIDGrey;
+    margin: 0;
+    color: #fff;
+
+    h3 {
+        color: rgba(255,255,255,.8);
+        text-shadow: none;
+    }
+
+    .billboard {
+        padding: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+    }
+
+    .button {
+        background: rgba(255,255,255,.8);
+        box-shadow: none;
+        color: @linkBlue;
+        font-weight: normal;
+        text-shadow: none;
+    }
+}
+
